@@ -60,6 +60,10 @@ sub import {
 
 Luke Closs, C<< <cpan at 5thplane.com> >>
 
+=head1 MAD CREDS TO
+
+Ingy döt ne, for only.pm
+
 =head1 LICENSE
 
 This program is free software; you can redistribute it and/or modify it
