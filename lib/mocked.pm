@@ -12,6 +12,10 @@ mocked - use mocked libraries in unit tests
   use mocked 'LWP::Simple';
   my $text = get($url);
 
+  # use a fake WWW::Mechanize for testing from t/mock-libs/WWW/Mechanize.pm
+  use mocked [(WWW::Mechanize t/mock-libs)];
+  
+
 =head1 DESCRIPTION
 
 Often during unit testing, you may find the need to use mocked libraries
@@ -30,26 +34,34 @@ maintainers.
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 FUNCTIONS
 
 =head2 import
 
-This function will make sure the module you specify is loaded from t/lib.
+With a package name, this function will ensure that the module you specify
+is loaded from t/lib.
+
+You can also pass an array reference containing the package name and a
+directory from which to load it from.
 
 =cut
 
 sub import {
     my $class = shift;
     my $module = shift;
-
+   
     my $mock_path = 't/lib';
-    my @old_inc = @INC;
-    @INC = ($mock_path);
-    eval "require $module";
-    @INC = @old_inc;
-    die if $@;
+    if(ref($module) eq 'ARRAY'){
+      ($module, $mock_path) = @$module;
+    }
+    
+    {
+      local @INC = ($mock_path);
+      eval "require $module";
+    }
+    die $@ if $@;
 
     my $import = $module->can('import');
     @_ = ($module, @_);
