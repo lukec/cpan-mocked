@@ -13,7 +13,7 @@ mocked - use mocked libraries in unit tests
   my $text = get($url);
 
   # use a fake WWW::Mechanize for testing from t/mock-libs/WWW/Mechanize.pm
-  use mocked [(WWW::Mechanize t/mock-libs)];
+  use mocked [qw(WWW::Mechanize t/mock-libs)];
   
 
 =head1 DESCRIPTION
