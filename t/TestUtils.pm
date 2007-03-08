@@ -21,6 +21,11 @@ write_module(
     { file => "lib/Foo/Baz.pm",   version => '0.01' },
     { file => "t/ERK/Foo/Baz.pm", version => 'Mocked' },
 );
+write_module(
+    'Foo::PreLoaded',
+    { file => "lib/Foo/PreLoaded.pm",   version => '0.01' },
+    { file => "t/lib/Foo/PreLoaded.pm", version => 'Mocked' },
+);
 
 my @to_delete;
 sub write_module {

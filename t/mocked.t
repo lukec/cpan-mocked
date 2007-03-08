@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 use Test::More qw/no_plan/;
+use Test::Exception;
 use t::TestUtils;
 
 BEGIN { # test setup
@@ -10,6 +11,11 @@ BEGIN { # test setup
     require Foo::Moose;
     import Foo::Moose;
     use mocked [qw(Foo::Baz t/ERK/)];
+
+    use Foo::PreLoaded;
+    throws_ok {
+      mocked->import(q{Foo::PreLoaded});
+    } qr{Attempting to mock}, q{ensure we die on preloaded module};
 }
 
 Load_mocked_library: {

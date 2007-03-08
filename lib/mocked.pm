@@ -51,7 +51,11 @@ directory from which to load it from.
 sub import {
     my $class = shift;
     my $module = shift;
-   
+ 
+    if(exists $INC{ convert_package_to_file($module) }){
+      die q{Attempting to mock an already loaded library};
+    }
+
     my $mock_path = 't/lib';
     if(ref($module) eq 'ARRAY'){
       ($module, $mock_path) = @$module;
@@ -66,6 +70,13 @@ sub import {
     my $import = $module->can('import');
     @_ = ($module, @_);
     goto &$import if $import;
+}
+
+sub convert_package_to_file {
+  my $package = shift;
+  (my $filename = $package) =~ s{::}{/}g;
+  $filename .= q{.pm};
+  return $filename;
 }
 
 =head1 AUTHOR
