@@ -1,8 +1,8 @@
+0.03 - Sat Mar 10 15:11:29 PST 2007
+ - Added ability to mock from particular directories (Scott McWhirter [konobi]).
 
-0.03  2007-03-02
-      * Added ability to mock from particular directories (Scott McWhirter [konobi]).
+0.02 - Wed Feb 21 21:56:51 PST 2007
+ - Added README
 
-0.02  ---
-
-0.01  ---
-
+0.01 - Wed Feb 21 21:56:37 PST 2007
+ - initial release
