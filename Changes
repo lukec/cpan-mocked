@@ -1,3 +1,9 @@
+0.05 - not yet released
+ - Fixed pod typo - thanks David Cantrell
+
+0.04 - Sun Mar 11 12:05:47 PDT 2007
+ - Added build dependency on Test::Exception
+
 0.03 - Sat Mar 10 15:11:29 PST 2007
  - Added ability to mock from particular directories (Scott McWhirter [konobi]).
 

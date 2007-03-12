@@ -34,7 +34,7 @@ maintainers.
 
 =cut
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 =head1 FUNCTIONS
 
@@ -82,11 +82,11 @@ sub convert_package_to_file {
 =head1 AUTHOR
 
 Luke Closs, C<< <cpan at 5thplane.com> >>
-Scott McWhirter, C<< kungfuftr@ at cpan.org>>
+Scott McWhirter, C<< <kungfuftr at cpan.org> >>
 
 =head1 MAD CREDS TO
 
-Ingy döt ne, for only.pm
+Ingy döt net, for only.pm
 
 =head1 LICENSE
 
