@@ -1,5 +1,8 @@
 0.06 - not yet released
  - load Exporter, so mocked libraries can export things;
+ - Make extra sure that $module has not been loaded from another package by
+   seeing if the symbol table for that package has been decorated.
+    (Scott McWhirter [konobi]).
 
 0.05 - Tue Mar 13 17:25:54 PDT 2007
  - Fixed pod typo - thanks David Cantrell
