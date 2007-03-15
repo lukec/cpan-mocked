@@ -1,6 +1,7 @@
 package mocked;
 use strict;
 use warnings;
+use base 'Exporter'; # load this so mocked libraries can export things
 
 =head1 NAME
 
@@ -34,7 +35,7 @@ maintainers.
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 FUNCTIONS
 

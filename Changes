@@ -1,4 +1,7 @@
-0.05 - not yet released
+0.06 - not yet released
+ - load Exporter, so mocked libraries can export things;
+
+0.05 - Tue Mar 13 17:25:54 PDT 2007
  - Fixed pod typo - thanks David Cantrell
 
 0.04 - Sun Mar 11 12:05:47 PDT 2007
