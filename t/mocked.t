@@ -12,6 +12,11 @@ BEGIN { # test setup
     import Foo::Moose;
     use mocked [qw(Foo::Baz t/ERK/)];
 
+    use Foo::Other;
+    throws_ok {
+      mocked->import(q{Foo::WhatWeWant});
+    } qr{Attempting to mock}, q{ensure we die on preloaded package};
+    
     use Foo::PreLoaded;
     throws_ok {
       mocked->import(q{Foo::PreLoaded});

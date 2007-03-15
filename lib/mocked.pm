@@ -53,8 +53,15 @@ sub import {
     my $class = shift;
     my $module = shift;
  
-    if(exists $INC{ convert_package_to_file($module) }){
-      die q{Attempting to mock an already loaded library};
+    {
+      no strict 'refs';
+      my $sym = $module . '::';
+      if(
+          exists $INC{ convert_package_to_file($module) } 
+          || (keys %{$sym})
+        ){
+        die q{Attempting to mock an already loaded library};
+      }
     }
 
     my $mock_path = 't/lib';

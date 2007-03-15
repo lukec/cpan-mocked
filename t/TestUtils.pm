@@ -27,6 +27,33 @@ write_module(
     { file => "t/lib/Foo/PreLoaded.pm", version => 'Mocked' },
 );
 
+my $other_file = q{lib/Foo/Other.pm};
+write_module(
+    'Foo::PreLoaded',
+    { file => "lib/Foo/Other.pm",   version => '0.01' },
+    { file => "t/lib/Foo/WhatWeWant.pm", version => 'Mocked' },
+);
+open(my $fh, qq{>>$other_file}) or die "Could not open '$other_file' for append";
+print $fh qq{
+package Foo::WhatWeWant;
+
+use strict;
+use warnings;
+use base 'Exporter';
+our \@EXPORT_OK = qw(\$awesome);
+
+our \$VERSION = '0.01';
+our \$awesome = 'like, totally';
+
+sub module_filename {
+  return '$other_file';
+}
+
+1;
+};
+close($fh) or die "Could not close '$other_file' for append";
+
+
 my @to_delete;
 sub write_module {
     my $module = shift;
