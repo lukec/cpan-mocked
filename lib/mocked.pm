@@ -81,7 +81,7 @@ sub import {
       ($module, $mock_path) = @$module;
     }
     
-    $real_inc_paths = \@INC;
+    local $real_inc_paths = \@INC;
     {
       local @INC = ($mock_path);
       eval "require $module";
