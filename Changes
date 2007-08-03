@@ -1,4 +1,4 @@
-0.07 - not yet released
+0.07 - Fri Aug  3 11:26:53 PDT 2007
  - Added unmocked.pm, to allow you to load real libraries
    from within your mocked libraries
 
