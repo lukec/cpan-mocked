@@ -1,3 +1,7 @@
+0.07 - not yet released
+ - Added unmocked.pm, to allow you to load real libraries
+   from within your mocked libraries
+
 0.06 - Fri Jun  8 12:25:48 PDT 2007
  - load Exporter, so mocked libraries can export things;
  - Make extra sure that $module has not been loaded from another package by

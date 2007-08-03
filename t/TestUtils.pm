@@ -27,10 +27,27 @@ write_module(
     { file => "t/lib/Foo/PreLoaded.pm", version => 'Mocked' },
 );
 
+# Create a module that uses URI.pm
+my $unmocked_code = <<'EOT';
+use unmocked 'URI';
+
+sub foo {
+    my $u = URI->new('http://awesnob.com');
+    return $u->host;
+}
+EOT
+write_module(
+    'Foo::UsingUnmocked',
+    { file => 'lib/Foo/UsingUnmocked.pm', version => '0.01', 
+        extra_code => $unmocked_code },
+    { file => 't/lib/Foo/UsingUnmocked.pm', version => 'Mocked', 
+        extra_code => $unmocked_code },
+);
+
 my $other_file = q{lib/Foo/Other.pm};
 write_module(
     'Foo::PreLoaded',
-    { file => "lib/Foo/Other.pm",   version => '0.01' },
+    { file => $other_file,               version => '0.01' },
     { file => "t/lib/Foo/WhatWeWant.pm", version => 'Mocked' },
 );
 open(my $fh, qq{>>$other_file}) or die "Could not open '$other_file' for append";
@@ -60,6 +77,7 @@ sub write_module {
     for my $mod_ref (@_) {
         my $file = $mod_ref->{file};
         my $version = $mod_ref->{version};
+        my $extra_code = $mod_ref->{extra_code} || '';
         (my $d = $file) =~ s#(.+)/.+#$1#;
         unless (-d $d) {
             mkpath $d or die "Can't mkpath $d: $!";
@@ -79,6 +97,8 @@ our \$awesome = 'like, totally';
 sub module_filename {
     return '$file';
 }
+
+$extra_code
 
 1;
 EOT

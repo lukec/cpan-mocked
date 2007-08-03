@@ -2,6 +2,7 @@ package mocked;
 use strict;
 use warnings;
 use base 'Exporter'; # load this so mocked libraries can export things
+use unmocked;
 
 =head1 NAME
 
@@ -35,7 +36,18 @@ maintainers.
 
 =cut
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
+
+=head1 VARIABLES
+
+=head2 real_inc_paths
+
+The real @INC that we are over-ridding is stored here while we are 
+loading the mocked library.
+
+=cut
+
+our $real_inc_paths;
 
 =head1 FUNCTIONS
 
@@ -69,6 +81,7 @@ sub import {
       ($module, $mock_path) = @$module;
     }
     
+    $real_inc_paths = \@INC;
     {
       local @INC = ($mock_path);
       eval "require $module";
