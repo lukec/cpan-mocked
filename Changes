@@ -1,4 +1,4 @@
-0.06 - not yet released
+0.06 - Fri Jun  8 12:25:48 PDT 2007
  - load Exporter, so mocked libraries can export things;
  - Make extra sure that $module has not been loaded from another package by
    seeing if the symbol table for that package has been decorated.
