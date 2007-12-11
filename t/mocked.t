@@ -21,6 +21,8 @@ BEGIN { # test setup
     throws_ok {
       mocked->import(q{Foo::PreLoaded});
     } qr{Attempting to mock}, q{ensure we die on preloaded module};
+
+    use mocked 'Foo::NestedMocked';
 }
 
 Load_mocked_library: {
@@ -36,3 +38,13 @@ Load_mocked_library: {
     is Foo::Baz::module_filename(), 't/ERK/Foo/Baz.pm';
 }
 
+Nested_mocks: {
+    # Foo::NestedMocked does a "use mocked 'Foo::Nestee'"
+    # which _should_ DTRT - load the Foo::Nestee in t/lib.
+    # Foo::Nestee should then be able to "use unmocked 'Data::Dumper'"
+    # and that should work fine.
+    is $Foo::NestedMocked::VERSION, 'Mocked';
+    is $Foo::NestedMocked::FNV, 'Mocked';
+    is $Foo::NestedMocked::FNV2, '0.01';
+    ok $Foo::Nestee::DDV;
+}

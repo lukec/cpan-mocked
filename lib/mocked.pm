@@ -36,7 +36,7 @@ maintainers.
 
 =cut
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 =head1 VARIABLES
 
@@ -64,6 +64,7 @@ directory from which to load it from.
 sub import {
     my $class = shift;
     my $module = shift;
+    return unless $module;
  
     {
       no strict 'refs';
@@ -81,7 +82,8 @@ sub import {
       ($module, $mock_path) = @$module;
     }
     
-    local $real_inc_paths = \@INC;
+    # Load the real inc paths the first time we're called.
+    $real_inc_paths ||= \@INC;
     {
       local @INC = ($mock_path);
       eval "require $module";

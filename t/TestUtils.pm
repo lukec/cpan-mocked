@@ -44,6 +44,40 @@ write_module(
         extra_code => $unmocked_code },
 );
 
+# Create a module that uses a nested mocked
+{
+    my $nested_mocked = <<'EOT';
+use mocked 'Foo::Nestee';
+use unmocked 'Foo::Nestee2';
+
+our $FNV = $Foo::Nestee::VERSION;
+our $FNV2 = $Foo::Nestee2::VERSION;
+EOT
+    write_module(
+        'Foo::NestedMocked',
+        { file => 'lib/Foo/NestedMocked.pm', version => '0.01', 
+            extra_code => $nested_mocked },
+        { file => 't/lib/Foo/NestedMocked.pm', version => 'Mocked', 
+            extra_code => $nested_mocked },
+    );
+    my $nestee_code = <<'EOT';
+use unmocked 'Data::Dumper';
+our $DDV = $Data::Dumper::VERSION;
+EOT
+    write_module(
+        'Foo::Nestee',
+        { file => "lib/Foo/Nestee.pm",   version => '0.01',
+            extra_code => $nestee_code },
+        { file => "t/lib/Foo/Nestee.pm", version => 'Mocked',
+            extra_code => $nestee_code },
+    );
+    write_module(
+        'Foo::Nestee2',
+        { file => "lib/Foo/Nestee2.pm",   version => '0.01' },
+        { file => "t/lib/Foo/Nestee2.pm", version => 'Mocked' },
+    );
+}
+
 my $other_file = q{lib/Foo/Other.pm};
 write_module(
     'Foo::PreLoaded',

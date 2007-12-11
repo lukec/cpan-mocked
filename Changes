@@ -1,3 +1,7 @@
+0.08 - Mon Dec 10 18:45:21 PST 2007
+ - make nested mocked files DTRT when unmocked
+   is used from within the nested mocked file
+
 0.07 - Fri Aug  3 11:26:53 PDT 2007
  - Added unmocked.pm, to allow you to load real libraries
    from within your mocked libraries
